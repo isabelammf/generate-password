@@ -168,3 +168,24 @@ main {
     width: 18px;
 }
 
+/* Media query para telas menores, como dispositivos móveis */
+@media only screen and (max-width: 600px) {
+    
+    main {
+        padding: 0 1%;
+    }
+
+    .customize .actions {
+        color: #828282;
+    }
+
+    .customize .actions .password-legth {
+        margin: 2rem;
+    }
+
+    .customize .actions .checkbox-container {
+        display: inline-flex;
+        gap: 3rem;
+    }
+}
+
