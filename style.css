@@ -1,0 +1,170 @@
+body {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: #f8fafd;
+    color: #252525;
+}
+
+main {
+    margin: 0 auto;
+    padding: 0 20%;
+    max-width: 780px;
+}
+
+.hero {
+    font-size: larger;
+    text-align: center;
+    margin: 40px auto;
+}
+.hero .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.hero .subtitle {
+    font-size: 1.5rem;
+    color: #464646;
+}
+
+.box {
+    background: #fff;
+    box-shadow: 0 1px 3px rgb(132, 148, 165, 0.6);   
+    margin-bottom: 3rem;
+    border-radius: 8px;
+}
+
+
+.password {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+.password .text {
+    flex: 1;
+}
+.password .text input {
+    font-family: 'Fira Code', monospace;
+    font-size: 2.5rem;
+    border: none;
+    outline: none;
+    cursor: default;
+    width: 100%;
+    transition: all 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.password .actions button {
+    background-color: transparent;
+    color: rgb(136, 144, 152);
+    border: none;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+.password .actions button:hover {
+    color: #007BFF;
+}
+.password .actions button:active {
+    color: #27ae60;
+}
+
+.security-indicator{
+    height: 10px;
+    background-color: rgba(136, 144, 152, 0.6);
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+.security-indicator .bar {
+    height: 10px;
+    transition: all 0.2s;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.security-indicator .bar.completed {
+    border-top-right-radius: 0;
+}
+.security-indicator .bar.critical {
+    background-color: #eb5757;
+}
+.security-indicator .bar.warning {
+    background-color: #f2c94c;
+}
+.security-indicator .bar.safe {
+    background-color: #27ae60;
+}
+
+
+.customize {
+    padding-bottom: 3rem;
+    padding: 0 1rem 1rem 1rem;
+}
+.customize .title {
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1.75rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.customize .actions {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    color: #828282;
+}
+
+.customize .actions .password-legth{
+    flex: 1;
+}
+
+/* Estilizando o slider */
+.customize .actions .password-legth .slider {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 12px;
+    background: #ddd;
+    width: 100%;
+    border-radius: 8px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+.customize .actions .password-legth .slider:hover {
+    opacity: 1;
+}
+/* Estilizando a "trilha" do slider */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #007BFF;
+    cursor: pointer;
+}
+
+
+.customize .actions .checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.customize .actions .checkbox-container .checkbox-label {
+    display: flex;
+}
+.customize .actions .checkbox-container .text {
+    font-size: 1.2rem;
+    align-items: center;
+}
+.customize .actions .checkbox-container .checkmark {
+    height: 18px;
+    width: 18px;
+}
+

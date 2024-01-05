@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerador de Senha</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+
+        <section class="hero">
+            <h1 class="title">Gerador de Senha</h1>
+            <p class="subtitle">
+                Utilize o nosso gerador online para criar uma senha forte e segura.
+            </p>
+        </section>
+
+
+        <!-- Campo de Texto -->
+        <section class="box">
+            <div class="password">
+                <div class="text">
+                    <input type="text" name="password-field" id="password-field" readonly>
+                </div>
+
+                <div class="actions">
+                    <button id="copy">
+                        <span style="font-size: 42px;" class="material-symbols-outlined">
+                            content_copy
+                        </span>
+                    </button>
+                    <button id="renew">
+                        <span style="font-size: 42px;" class="material-symbols-outlined">
+                            autorenew
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <!-- Barra colorida -->
+            <div class="security-indicator">
+                <div id="security-indicator-bar" class="bar" style="width: 0;"></div>
+            </div>
+        </section>
+
+        <section class="box customize">
+            <h2 class="title">Personalizar</h2>
+            <div class="actions">
+                <div class="password-legth">
+                    <p>Tamanho: <span id="password-length-text"></span></p>
+                    <!-- Controle Deslizante -->
+                    <input 
+                        type="range" 
+                        name="password-length"
+                        id="password-length"
+                        class="slider"
+                        value="10"
+                        min="4" 
+                        max="64" 
+                    />
+                </div>
+
+                <div class="checkbox-container">
+                    <div class="checkbox-label">
+                        <input class="checkmark" type="checkbox" id="uppercase-check" checked>
+                        <span class="text">Maiúsculas</span>
+                    </div>
+
+                    <div class="checkbox-label">
+                        <input class="checkmark" type="checkbox" id="number-check" checked>
+                        <span class="text">Números</span>
+                    </div>
+                    
+                    <div class="checkbox-label">
+                        <input class="checkmark" type="checkbox" id="symbol-check" checked>
+                        <span class="text">Símbolos</span>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+
+    </main>
+
+
+    <script>
+        
+        // Obtém a referência para elementos HTML pelo ID 
+        const passwordLengthEl = document.getElementById("password-length")
+        const passwordLengthTextEl = document.getElementById("password-length-text")
+        const passwordFieldEl = document.getElementById('password-field')
+        const copyButtonEl = document.getElementById("copy")
+        const renewButtonEl = document.getElementById("renew")
+        const upperCaseCheckEl = document.getElementById("uppercase-check")
+        const numberCheckEl = document.getElementById("number-check")
+        const symbolCheckEl = document.getElementById("symbol-check")
+        const securityIndicatorBarEl = document.getElementById("security-indicator-bar")
+
+        passwordLengthTextEl.innerText = passwordLengthEl.value
+
+        // Obtém o valor inicial do comprimento da senha a partir do input do usuário
+        let passwordLength = passwordLengthEl.value
+
+        // Função para gerar uma senha com base no comprimento fornecido
+        function generatePassword() {
+            
+            let chars = 'abcdefghijklmnopqrstuvwxyz'
+            let upperCaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            let numberChars = '0123456789'
+            let symbolChars = '!@#$%^&*()-_+=[]{}|;:,.<>?/'
+
+            if (upperCaseCheckEl.checked) {
+                chars += upperCaseChars
+            }
+
+            if (numberCheckEl.checked) {
+                chars += numberChars
+            }
+
+            if (symbolCheckEl.checked) {
+                chars += symbolChars
+            }
+
+            // Variável para armazenar a senha gerada
+            let passwordResult = ""
+
+            // Loop para construir a senha caractere por caractere
+            for (let i = 0; i < passwordLength; i++) {
+
+                // Gera um número aleatório entre 0 e o comprimento de 'chars'
+                const ramdomNumber = Math.floor(Math.random() * chars.length)
+                // Adiciona o caractere correspondente ao índice aleatório ao resultado (password)
+                passwordResult += chars.charAt(ramdomNumber)
+            }
+
+            // Define o valor do campo de senha para a senha gerada
+            passwordFieldEl.value = passwordResult
+
+            calculateQuality()
+        }
+
+        // Função paracalcular a qualidade da senha (segurança)
+        function calculateQuality() {
+            // T*0.25 + M*0.15 + N*0.25 + S*0.35 = 100
+            const percent = Math.round(
+                (passwordLength / 64) * 35 +
+                (upperCaseCheckEl.checked ? 15 : 0) +
+                (numberCheckEl.checked ? 25 : 0) +
+                (symbolCheckEl.checked ? 25 : 0)
+            )
+        
+            securityIndicatorBarEl.style.width = `${percent}%`
+
+            if (percent > 69){
+                // safe
+                securityIndicatorBarEl.classList.remove("critical") //Remove a classe "critical" do elemento, se estiver presente.
+                securityIndicatorBarEl.classList.remove("warning")
+                securityIndicatorBarEl.classList.add("safe")
+            } else if ( percent > 50) {
+                // warning
+                securityIndicatorBarEl.classList.remove("critical")
+                securityIndicatorBarEl.classList.add("warning")
+                securityIndicatorBarEl.classList.remove("safe")
+            } else {
+                // critical
+                securityIndicatorBarEl.classList.add("critical")
+                securityIndicatorBarEl.classList.remove("warning")
+                securityIndicatorBarEl.classList.remove("safe")
+            }
+
+            if (percent >= 100) {
+                securityIndicatorBarEl.classList.add("completed")
+            } else {
+                securityIndicatorBarEl.classList.remove("completed")
+            }
+        }
+
+        // Função para copiar a senha fornecida no campo de texto
+        function copy() {
+            navigator.clipboard.writeText(passwordFieldEl.value)
+        }
+
+        // OUVINTE de eventos para o input do comprimento da senha
+        passwordLengthEl.addEventListener("input", function() {
+            
+            // Obtém o novo valor do comprimento da senha quando o usuário interage com o input
+            passwordLength = passwordLengthEl.value;
+            // Visor do número de caracteres tem a senha
+            passwordLengthTextEl.innerText = passwordLength
+            // Chama a função generatePassword com o novo comprimento
+            generatePassword();
+        })
+
+        // OUVINTES de evento ao clique dos checkboxs
+        upperCaseCheckEl.addEventListener("click", generatePassword)
+        numberCheckEl.addEventListener("click", generatePassword)
+        symbolCheckEl.addEventListener("click", generatePassword)
+
+        // OUVINTE de evento para o botão de copiar
+        copyButtonEl.addEventListener('click', copy)
+        // OUVINTE de evento para o botão de renew
+        renewButtonEl.addEventListener("click", generatePassword)
+        
+        generatePassword()
+
+        
+    </script>
+    
+</body>
+
+</html>
