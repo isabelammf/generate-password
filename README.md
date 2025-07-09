@@ -32,5 +32,5 @@ Esta é uma página web simples que gera senhas seguras e personalizáveis. Voc�
 * `style.css` — estilos visuais da página.
 * Script JavaScript embutido no HTML para a lógica de geração e interação.
 
-##Contato
+## Contato
 Para dúvidas ou sugestões, entre em contato pelo e-mail: isabelammf@gmail.com
